@@ -25,6 +25,18 @@ document.getElementById('current-0').textContent = '0';
 document.getElementById('score-1').textContent = '0';
 document.getElementById('current-1').textContent = '0';
 
+function nextPlayer(){
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        roundScores = 0;
+        document.getElementById('current-0').textContent = '0';
+        document.getElementById('current-1').textContent = '0';
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+        
+        document.querySelector('.dice').style.display = 'none';
+    }
+
+
 
 document.querySelector('.btn-roll').addEventListener('click', () => {
     
@@ -41,14 +53,24 @@ document.querySelector('.btn-roll').addEventListener('click', () => {
         document.querySelector('#current-' + activePlayer).textContent = roundScores;
         document.querySelector('#score-' + activePlayer).textContent = roundScores;
     } else {
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-        roundScores = 0;
-        document.getElementById('current-0').textContent = '0';
-        document.getElementById('current-1').textContent = '0';
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
+        nextPlayer()
     }
                                                      });
+
+document.querySelector('.btn-hold').addEventListener('click', () =>{
+    
+    scores[activePlayer] += roundScores;
+    
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+    
+    if(scores[activePlayer] >= 20)
+    { document.querySelector('#name-' + activePlayer).textContent = 'Winner!'; 
+      document.querySelector('.dice').style.display= 'none';
+     document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+     document.querySelector('.player-' + activePlayer + '-panel').classList.remove('winner');
+    } else { 
+        nextPlayer(); }
+});
     
 
 
