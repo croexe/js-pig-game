@@ -9,13 +9,47 @@ GAME RULES:
 
 */
 
-var scores, roundScores, activePlayer, gamePlaying, dice;
+var scores, roundScores, activePlayer, gamePlaying;
 
 
 scores = [0,0];
 roundScores = 0;
 activePlayer = 0;
 
+
+
+
+document.querySelector('.dice').style.display = 'none';
+document.getElementById('score-0').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+document.getElementById('current-1').textContent = '0';
+
+
+document.querySelector('.btn-roll').addEventListener('click', () => {
+    
+    var dice = Math.floor(Math.random() * 6) +1;
+    var diceDOM = document.querySelector('.dice');
+    
+    
+    diceDOM.src = 'dice-' + dice + '.png';
+    document.querySelector('#current-' + activePlayer).textContent = dice;
+    diceDOM.style.display = 'block';
+    
+    if( dice !== 1){
+        roundScores += dice;
+        document.querySelector('#current-' + activePlayer).textContent = roundScores;
+        document.querySelector('#score-' + activePlayer).textContent = roundScores;
+    } else {
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        roundScores = 0;
+        document.getElementById('current-0').textContent = '0';
+        document.getElementById('current-1').textContent = '0';
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+    }
+                                                     });
+    
 
 
 
